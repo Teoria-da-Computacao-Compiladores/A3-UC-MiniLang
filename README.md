@@ -16,7 +16,10 @@ Como o projeto utiliza apenas bibliotecas nativas do Python, nenhuma configuraç
    cd minilang-compiler
 
 ## Execução do Analisador Léxico
-  python minilang/lexer.py
+   python minilang/lexer.py
 
 ## Execução do Teste
-  python -m unittest tests/test_lexer.py
+   python -m unittest tests/test_lexer.py
+
+## Execução no Terminal do Exemplo
+   python minilang/lexer.py examples/valido.min
