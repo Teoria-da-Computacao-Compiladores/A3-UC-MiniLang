@@ -1,0 +1,9 @@
+programa erro {
+
+    var
+
+    x: inteiro;
+
+    x = 10 @ 20;
+
+} fim.

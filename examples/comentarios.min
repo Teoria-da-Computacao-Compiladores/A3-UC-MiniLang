@@ -1,0 +1,15 @@
+programa comentarios {
+
+    # declaração das variáveis
+    var
+
+    x: inteiro;
+    y: inteiro;
+
+    # atribuição dos valores
+    x = 10;
+    y = 20;
+
+    # comentário no final do programa
+
+} fim.

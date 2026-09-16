@@ -1,0 +1,23 @@
+programa operadores {
+
+    var
+    x: inteiro;
+    y: inteiro;
+
+    x = 10;
+    y = 20;
+
+    x + y;
+    x - y;
+    x * y;
+    x / y;
+    x % y;
+
+    x == y;
+    x != y;
+    x < y;
+    x <= y;
+    x > y;
+    x >= y;
+
+} fim.
