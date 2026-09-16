@@ -140,21 +140,29 @@ class Lexer:
         return Token(TokenType.ERRO, lexema_erro, linha_token, coluna_token)
 
 if __name__ == "__main__":
+    import sys
+    import os
+    
     sys.stdout.reconfigure(encoding='utf-8')
-    codigo_teste = """
-    programa exemplo {
-      var x: inteiro;
-      var ok: booleano;
-      x = 10 + 2 * 3;
-      ok = verdadeiro e não falso;
-      se (x >= 10) {
-        escreva(x);
-      } senão {
-        leia(x);
-      }
-    } fim.
-    """
-    analisador = Lexer(codigo_teste)
+    
+    if len(sys.argv) > 1:
+        caminho_arquivo = sys.argv[1]
+        if not os.path.exists(caminho_arquivo):
+            print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
+            sys.exit(1)
+            
+        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
+            codigo_fonte = arquivo.read()
+        print(f"Analisando arquivo: {caminho_arquivo}\n")
+    else:
+        print("Nenhum arquivo informado. Analisando texto de exemplo interno...\n")
+        codigo_fonte = """
+        programa exemplo {
+          var x: inteiro;
+        } fim.
+        """
+    
+    analisador = Lexer(codigo_fonte)
     while True:
         token = analisador.proximo_token()
         print(token)

@@ -1,0 +1,11 @@
+programa exemplo {
+  var x: inteiro;
+  var ok: booleano;
+  x = 10 + 2 * 3;
+  ok = verdadeiro e não falso;
+  se (x >= 10) {
+    escreva(x);
+  } senão {
+    leia(x);
+  }
+} fim.
