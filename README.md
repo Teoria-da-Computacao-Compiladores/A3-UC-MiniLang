@@ -18,8 +18,17 @@ Como o projeto utiliza apenas bibliotecas nativas do Python, nenhuma configuraç
 ## Execução do Analisador Léxico
    python minilang/lexer.py
 
-## Execução do Teste
+## Execução dos Testes
    python -m unittest tests/test_lexer.py
+   
+   python3 -m unittest tests.test_lexer_complemento
 
-## Execução no Terminal do Exemplo
+
+## Execução no Terminal dos Exemplos
    python minilang/lexer.py examples/valido.min
+   
+   python3 minilang/lexer.py examples/operadores.min
+
+   python3 minilang/lexer.py examples/comentarios.min
+
+   python3 minilang/lexer.py examples/erro_lexico.min
