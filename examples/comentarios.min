@@ -1,15 +1,14 @@
+# Comentários: tudo depois de '#' até o fim da linha é descartado pelo lexer.
 programa comentarios {
 
     # declaração das variáveis
-    var
-
-    x: inteiro;
-    y: inteiro;
+    var x: inteiro;
+    var y: inteiro;   # comentário depois de um comando
 
     # atribuição dos valores
     x = 10;
     y = 20;
-
-    # comentário no final do programa
+    escreva(x + y);   # a soma aparece na saída
 
 } fim.
+# comentário na última linha, sem quebra de linha no final

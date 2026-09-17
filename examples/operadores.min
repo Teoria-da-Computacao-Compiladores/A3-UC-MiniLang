@@ -1,23 +1,31 @@
+# Todos os operadores da MiniLang, usados dentro de atribuições.
 programa operadores {
 
-    var
-    x: inteiro;
-    y: inteiro;
+    var x: inteiro;
+    var y: inteiro;
+    var r: inteiro;
+    var b: booleano;
 
     x = 10;
-    y = 20;
+    y = 3;
 
-    x + y;
-    x - y;
-    x * y;
-    x / y;
-    x % y;
+    # aritméticos
+    r = x + y;
+    r = x - y;
+    r = x * y;
+    r = x / y;
+    r = x % y;
 
-    x == y;
-    x != y;
-    x < y;
-    x <= y;
-    x > y;
-    x >= y;
+    # relacionais (lookahead: = / ==, < / <=, > / >=, !=)
+    b = x == y;
+    b = x != y;
+    b = x < y;
+    b = x <= y;
+    b = x > y;
+    b = x >= y;
+
+    # lógicos
+    b = verdadeiro e não falso;
+    b = (x > y) ou (x == y);
 
 } fim.

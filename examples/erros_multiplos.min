@@ -1,0 +1,10 @@
+# Vários erros léxicos no mesmo arquivo: o lexer reporta todos em uma execução.
+programa erros {
+    var total: inteiro;
+    var _temp: inteiro;
+    total = 12abc;
+    total = total $ 1;
+    se (! verdadeiro) {
+        escreva(total);
+    }
+} fim.
