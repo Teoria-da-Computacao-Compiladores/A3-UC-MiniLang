@@ -1,3 +1,5 @@
+# Programa válido: usa declarações, atribuição, condicional, repetição,
+# leitura e escrita. Não deve gerar nenhum erro léxico.
 programa exemplo {
   var x: inteiro;
   var ok: booleano;
@@ -7,5 +9,8 @@ programa exemplo {
     escreva(x);
   } senão {
     leia(x);
+  }
+  enquanto (x > 0) {
+    x = x - 1;
   }
 } fim.
