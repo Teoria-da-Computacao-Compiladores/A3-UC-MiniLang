@@ -107,10 +107,3 @@ A3-UC-MiniLang/
 ├── tests/               # testes automatizados (unittest)
 └── docs/                # especificação do AFD, notas de marco e explicações
 ```
-
-## 🤖 Uso de IA generativa
-
-Conforme a seção 8 das instruções da A3, a equipe declara o uso de IA
-generativa (Claude, da Anthropic) na revisão do M1 e na implementação dos
-ajustes descritos em [docs/mudancas_m1.md](docs/mudancas_m1.md). Todos os
-integrantes são responsáveis por revisar e saber explicar qualquer trecho do código.
