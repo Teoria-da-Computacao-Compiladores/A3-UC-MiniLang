@@ -1,6 +1,12 @@
 # Nota de marco — M1: Analisador léxico
 
-**Equipe:** _[preencher com os nomes dos integrantes]_
+**Equipe:** 
+
+Davi Floriano Hermida	1272413195
+Paulo Victor Nonato de Jesus	12724129348
+Alexandre Ribeiro Silva e Silva	12724133597
+Eraldino Ramos Albergaria Lopes	12724123513
+
 **Repositório:** https://github.com/Teoria-da-Computacao-Compiladores/A3-UC-MiniLang
 **Extensão escolhida (para o M4):** Opção A — procedimentos sem retorno, com parâmetros por valor
 
