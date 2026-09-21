@@ -36,21 +36,3 @@
   verificado nas fases seguintes.
 - A coluna conta caracteres: uma tabulação vale uma coluna, não a largura
   exibida pelo editor.
-
-## Divisão do trabalho
-
-| Integrante | Contribuição |
-|---|---|
-| _[nome]_ | _[ex.: implementação base do lexer]_ |
-| _[nome]_ | _[ex.: testes e exemplos]_ |
-| _[nome]_ | _[ex.: documentação do AFD]_ |
-| _[nome]_ | _[ex.: mensagens de erro e linha de comando]_ |
-
-## Uso de IA generativa
-
-_[A equipe deve revisar e completar esta seção.]_ Foi usado o Claude
-(Anthropic) para revisar o M1 e implementar os ajustes descritos em
-[`docs/mudancas_m1.md`](mudancas_m1.md): mensagens de erro léxico, correção da
-recursão nos comentários, restrição do alfabeto, linha de comando, testes e
-documentação do AFD. Todos os integrantes devem revisar esse código e
-conseguir explicar qualquer trecho.
