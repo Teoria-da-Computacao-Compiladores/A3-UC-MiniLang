@@ -1,5 +1,3 @@
-"""Testes de ponta a ponta: arquivos de examples/ e a linha de comando."""
-
 import os
 import subprocess
 import sys

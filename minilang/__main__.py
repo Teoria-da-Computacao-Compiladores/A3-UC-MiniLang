@@ -1,14 +1,3 @@
-"""
-Linha de comando do compilador MiniLang.
-
-Uso:
-    python -m minilang arquivo.min
-
-Imprime a tabela de tokens e, se houver, a lista de erros léxicos.
-Código de saída: 0 sem erros, 1 com erros léxicos, 2 se o arquivo não puder
-ser lido.
-"""
-
 import argparse
 import sys
 
@@ -27,7 +16,6 @@ def formatar_tabela(tokens) -> str:
 
 
 def ler_arquivo(caminho):
-    """Lê o código-fonte; devolve (codigo, mensagem_de_erro)."""
     try:
         with open(caminho, "r", encoding="utf-8") as arquivo:
             return arquivo.read(), None

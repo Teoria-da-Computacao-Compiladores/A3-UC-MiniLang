@@ -5,6 +5,12 @@ linguagem imperativa pequena e didática, desenvolvido para a A3 de Teoria da
 Computação e Compiladores (UNIFACS 2026.2). O projeto é construído em marcos
 ao longo do semestre.
 
+## Equipe: 
+Davi Floriano Hermida | 1272413195
+Paulo Victor Nonato de Jesus | 12724129348
+Alexandre Ribeiro Silva e Silva | 12724133597
+Eraldino Ramos Albergaria Lopes | 12724123513
+
 | Marco | Entrega | Situação |
 |---|---|---|
 | M1 | Analisador léxico | ✅ concluído |
@@ -90,10 +96,8 @@ python -m unittest discover -s tests
 
 ## 📚 Documentação
 
-- [docs/entrega_m1.md](docs/entrega_m1.md) — expressões regulares, diagrama e tabela de transição do AFD.
-- [docs/Analisador Léxico_detalhes.md](<docs/Analisador Léxico_detalhes.md>) — descrição do lexer em linguagem natural.
-- [docs/nota_marco_m1.md](docs/nota_marco_m1.md) — nota de marco do M1.
-- [docs/mudancas_m1.md](docs/mudancas_m1.md) — o que mudou nos ajustes do M1 e como cada parte do código funciona.
+- [docs/entrega_m1.md](docs/entrega_m1.md) — especificações léxicas, expressões regulares, diagrama Mermaid e tabela de transição do AFD.
+- [docs/nota_marco_m1.md](docs/nota_marco_m1.md) — nota de marco do M1 (escopo, decisões técnicas e divisão da equipe).
 
 ## 📁 Estrutura
 

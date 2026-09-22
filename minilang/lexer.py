@@ -1,15 +1,3 @@
-"""
-Analisador léxico da MiniLang (M1).
-
-Lê o código-fonte caractere a caractere e o transforma em uma lista de tokens
-(tipo, lexema, linha, coluna). A implementação segue o AFD documentado em
-docs/entrega_m1.md: cada método _ler_* corresponde a um caminho do autômato a
-partir do estado inicial q0.
-
-Erros léxicos não interrompem a análise: o lexer gera um token ERRO, registra
-uma mensagem em self.erros e continua lendo o restante do arquivo.
-"""
-
 from dataclasses import dataclass
 from enum import Enum, auto
 
@@ -52,16 +40,7 @@ class ErroLexico:
         return f"Erro léxico [linha {self.linha}, coluna {self.coluna}]: {self.mensagem}"
 
 
-# -----------------------------------------------------------------------------
-# Alfabeto da linguagem
-# -----------------------------------------------------------------------------
-
-# Letras acentuadas do português. São necessárias para as palavras reservadas
-# "senão" e "não" e, por decisão da equipe, também valem em identificadores.
 LETRAS_ACENTUADAS = "áàâãéêíóôõúüçÁÀÂÃÉÊÍÓÔÕÚÜÇ"
-
-# Só estes caracteres contam como espaço. Outros (ex.: espaço não separável
-# copiado da web) geram erro léxico em vez de passarem despercebidos.
 ESPACOS = " \t\r\n"
 
 
@@ -70,17 +49,12 @@ def eh_letra(c):
 
 
 def eh_digito(c):
-    # Não usa str.isdigit(), que aceitaria dígitos Unicode como "²" ou "٣".
     return c is not None and "0" <= c <= "9"
 
 
 def eh_caractere_de_identificador(c):
     return eh_letra(c) or eh_digito(c) or c == "_"
 
-
-# -----------------------------------------------------------------------------
-# Tabelas de tokens
-# -----------------------------------------------------------------------------
 
 PALAVRAS_RESERVADAS = {
     "programa": TokenType.PROGRAMA, "var": TokenType.VAR,
@@ -90,12 +64,9 @@ PALAVRAS_RESERVADAS = {
     "leia": TokenType.LEIA, "verdadeiro": TokenType.VERDADEIRO,
     "falso": TokenType.FALSO, "e": TokenType.E, "ou": TokenType.OU,
     "não": TokenType.NAO, "fim": TokenType.FIM,
-    # Sinônimos sem acento: quem digita sem acento não recebe um identificador
-    # "senao" por engano (o que só daria erro mais tarde, no parser).
     "senao": TokenType.SENAO, "nao": TokenType.NAO,
 }
 
-# Operadores e delimitadores de um único caractere.
 SIMBOLOS_SIMPLES = {
     "+": TokenType.SOMA, "-": TokenType.SUBTRACAO, "*": TokenType.MULTIPLICACAO,
     "/": TokenType.DIVISAO, "%": TokenType.MODULO,
@@ -105,9 +76,6 @@ SIMBOLOS_SIMPLES = {
     ",": TokenType.VIRGULA, ".": TokenType.PONTO,
 }
 
-# Operadores que precisam de lookahead: primeiro caractere ->
-# (token se vier sozinho, token se vier seguido de "=").
-# None significa que o caractere sozinho não é um token válido.
 OPERADORES_COM_LOOKAHEAD = {
     "=": (TokenType.ATRIBUICAO, TokenType.IGUAL),
     "<": (TokenType.MENOR, TokenType.MENOR_IGUAL),
@@ -129,12 +97,7 @@ class Lexer:
     def tem_erros(self) -> bool:
         return bool(self.erros)
 
-    # -------------------------------------------------------------------------
-    # Leitura de caracteres
-    # -------------------------------------------------------------------------
-
     def avancar(self):
-        """Consome o caractere atual, atualizando linha e coluna."""
         if self.posicao < len(self.codigo):
             caractere = self.codigo[self.posicao]
             if caractere == '\n':
@@ -147,24 +110,17 @@ class Lexer:
         return None
 
     def espiar(self):
-        """Lookahead: devolve o caractere atual sem consumi-lo."""
         if self.posicao < len(self.codigo):
             return self.codigo[self.posicao]
         return None
 
-    # -------------------------------------------------------------------------
-    # API pública
-    # -------------------------------------------------------------------------
-
     def proximo_token(self) -> Token:
-        """Reconhece e devolve o próximo token (estado inicial q0 do AFD)."""
         self._pular_espacos_e_comentarios()
 
         caractere = self.espiar()
         if caractere is None:
             return Token(TokenType.EOF, "", self.linha, self.coluna)
 
-        # Posição onde o token começa (usada no token e nas mensagens de erro)
         linha, coluna = self.linha, self.coluna
 
         if eh_letra(caractere):
@@ -187,7 +143,6 @@ class Lexer:
         return self._erro(caractere, f"caractere inválido {caractere!r}", linha, coluna)
 
     def tokenizar(self) -> list[Token]:
-        """Devolve todos os tokens do código, terminando sempre com EOF."""
         tokens = []
         while True:
             token = self.proximo_token()
@@ -195,17 +150,7 @@ class Lexer:
             if token.tipo == TokenType.EOF:
                 return tokens
 
-    # -------------------------------------------------------------------------
-    # Caminhos do AFD
-    # -------------------------------------------------------------------------
-
     def _pular_espacos_e_comentarios(self):
-        """
-        Descarta espaços e comentários (# até o fim da linha).
-
-        É um laço, não recursão: a versão recursiva estourava o limite de
-        recursão do Python com ~1000 linhas de comentário seguidas.
-        """
         while True:
             caractere = self.espiar()
             if caractere is not None and caractere in ESPACOS:
@@ -217,7 +162,6 @@ class Lexer:
                 return
 
     def _ler_palavra(self) -> str:
-        """Consome letras, dígitos e '_' a partir da posição atual."""
         lexema = ""
         while eh_caractere_de_identificador(self.espiar()):
             lexema += self.avancar()
@@ -233,8 +177,6 @@ class Lexer:
         while eh_digito(self.espiar()):
             lexema += self.avancar()
 
-        # "12abc" ou "3_x": dígitos colados em letras formam um único erro,
-        # em vez de virarem NUMERO + IDENTIFICADOR silenciosamente.
         if eh_letra(self.espiar()) or self.espiar() == "_":
             lexema += self._ler_palavra()
             return self._erro(
@@ -261,7 +203,7 @@ class Lexer:
             self.avancar()
             return Token(tipo_com_igual, primeiro + "=", linha, coluna)
 
-        if tipo_simples is None:  # "!" sozinho
+        if tipo_simples is None:
             return self._erro(
                 primeiro,
                 "'!' isolado não é um operador válido; use '!=' para diferente ou 'não' para negação",
@@ -271,14 +213,11 @@ class Lexer:
         return Token(tipo_simples, primeiro, linha, coluna)
 
     def _erro(self, lexema, mensagem, linha, coluna) -> Token:
-        """Registra um erro léxico e devolve um token ERRO (a análise continua)."""
         self.erros.append(ErroLexico(mensagem, linha, coluna))
         return Token(TokenType.ERRO, lexema, linha, coluna)
 
 
 if __name__ == "__main__":
-    # Mantém compatível o comando antigo "python minilang/lexer.py arquivo.min".
-    # O comando oficial é "python -m minilang arquivo.min".
     import os
     import sys
 

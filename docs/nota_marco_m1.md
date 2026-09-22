@@ -1,11 +1,10 @@
 # Nota de marco — M1: Analisador léxico
 
 **Equipe:** 
-
-Davi Floriano Hermida	1272413195
-Paulo Victor Nonato de Jesus	12724129348
-Alexandre Ribeiro Silva e Silva	12724133597
-Eraldino Ramos Albergaria Lopes	12724123513
+Davi Floriano Hermida |	1272413195
+Paulo Victor Nonato de Jesus |	12724129348
+Alexandre Ribeiro Silva e Silva |	12724133597
+Eraldino Ramos Albergaria Lopes |	12724123513
 
 **Repositório:** https://github.com/Teoria-da-Computacao-Compiladores/A3-UC-MiniLang
 **Extensão escolhida (para o M4):** Opção A — procedimentos sem retorno, com parâmetros por valor
@@ -42,3 +41,11 @@ Eraldino Ramos Albergaria Lopes	12724123513
   verificado nas fases seguintes.
 - A coluna conta caracteres: uma tabulação vale uma coluna, não a largura
   exibida pelo editor.
+
+## Uso de IA generativa
+
+_[A equipe deve revisar e completar esta seção.]_ Foi usado o Claude
+(Anthropic) para revisar o M1 e implementar os ajustes técnicos:
+mensagens de erro léxico, correção da recursão nos comentários, restrição do
+alfabeto, linha de comando, testes e documentação do AFD. Todos os integrantes
+devem revisar esse código e conseguir explicar qualquer trecho.

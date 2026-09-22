@@ -1,5 +1,3 @@
-"""Testes das mensagens de erro léxico e dos casos-limite do lexer (ajustes do M1)."""
-
 import unittest
 
 from minilang.lexer import ErroLexico, Lexer, TokenType
@@ -175,7 +173,6 @@ class TestEspacosComentariosEPosicao(unittest.TestCase):
         )
 
     def test_tres_iguais_viram_igual_e_atribuicao(self):
-        # Maximal munch: o lexer pega o maior token possível primeiro.
         self.assertEqual(tipos("==="), [TokenType.IGUAL, TokenType.ATRIBUICAO])
 
     def test_tokenizar_termina_com_um_unico_eof(self):
