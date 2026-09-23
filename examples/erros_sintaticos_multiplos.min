@@ -1,0 +1,16 @@
+# Exemplo com múltiplos erros sintáticos: o parser recupera em modo pânico e lista todos.
+programa erros_multiplos {
+
+    var x: inteiro
+    var y: inteiro;
+
+    x = ;
+    y = 10;
+
+    se () {
+        escreva(y);
+    }
+
+    escreva(x);
+
+} fim.

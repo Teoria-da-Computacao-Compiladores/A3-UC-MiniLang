@@ -1,0 +1,10 @@
+# Exemplo com erro sintático: falta de ponto e vírgula na linha 6
+programa erro_sintaxe {
+
+    var x: inteiro;
+    var y: inteiro
+
+    x = 10;
+    y = 20;
+
+} fim.
