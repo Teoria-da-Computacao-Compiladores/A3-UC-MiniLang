@@ -1,0 +1,16 @@
+# Exemplo de extensão Opção A: procedimentos sem retorno com parâmetros por valor.
+programa demonstracao_procedimento {
+
+    var base: inteiro;
+    var resultado: inteiro;
+
+    procedimento dobrar_e_somar(valor: inteiro, incremento: inteiro) {
+        var temp: inteiro;
+        temp = valor * 2 + incremento;
+        escreva(temp);
+    }
+
+    base = 10;
+    dobrar_e_somar(base, 5);
+
+} fim.

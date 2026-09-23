@@ -39,13 +39,10 @@ Eraldino Ramos Albergaria Lopes |	12724123513
 
 - Números não têm limite de tamanho no lexer; o intervalo de `inteiro` será
   verificado nas fases seguintes.
-- A coluna conta caracteres: uma tabulação vale uma coluna, não a largura
-  exibida pelo editor.
+- A coluna conta caracteres: uma tabulação vale uma coluna, não a largura exibida pelo editor
 
 ## Uso de IA generativa
 
-_[A equipe deve revisar e completar esta seção.]_ Foi usado o Claude
-(Anthropic) para revisar o M1 e implementar os ajustes técnicos:
-mensagens de erro léxico, correção da recursão nos comentários, restrição do
-alfabeto, linha de comando, testes e documentação do AFD. Todos os integrantes
-devem revisar esse código e conseguir explicar qualquer trecho.
+Foi usado o Claude (Anthropic) e Google Gemini para revisar o M1 e implementar os ajustes técnicos:
+mensagens de erro léxico, correção da recursão nos comentários, restrição do alfabeto, linha de comando, testes e documentação do AFD. 
+Todos os integrantes devem revisar esse código e conseguir explicar qualquer trecho.
