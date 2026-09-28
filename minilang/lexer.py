@@ -1,9 +1,19 @@
+import os
+import sys
+
+_minilang_dir = os.path.dirname(os.path.abspath(__file__))
+_root_dir = os.path.dirname(_minilang_dir)
+if _root_dir not in sys.path:
+    sys.path.insert(0, _root_dir)
+while _minilang_dir in sys.path:
+    sys.path.remove(_minilang_dir)
+
 from dataclasses import dataclass
 from enum import Enum, auto
 
 
 class TokenType(Enum):
-    PROGRAMA = auto(); VAR = auto(); INTEIRO = auto(); BOOLEANO = auto()
+    PROGRAMA = auto(); VAR = auto(); PROCEDIMENTO = auto(); INTEIRO = auto(); BOOLEANO = auto()
     SE = auto(); SENAO = auto(); ENQUANTO = auto(); ESCREVA = auto()
     LEIA = auto(); VERDADEIRO = auto(); FALSO = auto(); E = auto()
     OU = auto(); NAO = auto(); FIM = auto()
@@ -58,6 +68,7 @@ def eh_caractere_de_identificador(c):
 
 PALAVRAS_RESERVADAS = {
     "programa": TokenType.PROGRAMA, "var": TokenType.VAR,
+    "procedimento": TokenType.PROCEDIMENTO,
     "inteiro": TokenType.INTEIRO, "booleano": TokenType.BOOLEANO,
     "se": TokenType.SE, "senão": TokenType.SENAO,
     "enquanto": TokenType.ENQUANTO, "escreva": TokenType.ESCREVA,
@@ -218,10 +229,6 @@ class Lexer:
 
 
 if __name__ == "__main__":
-    import os
-    import sys
-
-    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from minilang.__main__ import main
 
     sys.exit(main())

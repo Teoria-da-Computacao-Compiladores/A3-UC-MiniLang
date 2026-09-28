@@ -1,7 +1,9 @@
 import argparse
 import sys
 
+from minilang.ast import formatar_ast
 from minilang.lexer import Lexer, TokenType
+from minilang.parser import Parser
 
 
 def formatar_tabela(tokens) -> str:
@@ -31,12 +33,13 @@ def main(argv=None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
 
-    parser = argparse.ArgumentParser(
+    arg_parser = argparse.ArgumentParser(
         prog="python -m minilang",
-        description="Analisador léxico da MiniLang: lista os tokens de um arquivo .min.",
+        description="Compilador da MiniLang: análise léxica, sintática e geração de AST.",
     )
-    parser.add_argument("arquivo", help="caminho do programa MiniLang (ex.: examples/valido.min)")
-    args = parser.parse_args(argv)
+    arg_parser.add_argument("arquivo", help="caminho do programa MiniLang (ex.: examples/valido.min)")
+    arg_parser.add_argument("--ast", action="store_true", help="imprime a Árvore Sintática Abstrata (AST)")
+    args = arg_parser.parse_args(argv)
 
     codigo, erro_leitura = ler_arquivo(args.arquivo)
     if erro_leitura:
@@ -58,6 +61,22 @@ def main(argv=None) -> int:
         return 1
 
     print("Nenhum erro léxico encontrado.")
+
+    sintatico = Parser(tokens)
+    arvore = sintatico.parse()
+
+    if sintatico.tem_erros:
+        print(f"\n{len(sintatico.erros)} erro(s) sintático(s) encontrado(s):")
+        for erro in sintatico.erros:
+            print(f"  {erro}")
+        return 1
+
+    print("\nAnálise sintática concluída com sucesso: programa sintaticamente correto.")
+
+    if args.ast and arvore is not None:
+        print("\nÁrvore Sintática Abstrata (AST):")
+        print(formatar_ast(arvore))
+
     return 0
 
 
