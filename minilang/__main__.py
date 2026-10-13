@@ -4,6 +4,7 @@ import sys
 from minilang.ast import formatar_ast
 from minilang.lexer import Lexer, TokenType
 from minilang.parser import Parser
+from minilang.semantic import AnalisadorSemantico, formatar_tabela_simbolos
 
 
 def formatar_tabela(tokens) -> str:
@@ -35,10 +36,11 @@ def main(argv=None) -> int:
 
     arg_parser = argparse.ArgumentParser(
         prog="python -m minilang",
-        description="Compilador da MiniLang: análise léxica, sintática e geração de AST.",
+        description="Compilador da MiniLang: análise léxica, sintática, semântica e geração de AST.",
     )
     arg_parser.add_argument("arquivo", help="caminho do programa MiniLang (ex.: examples/valido.min)")
     arg_parser.add_argument("--ast", action="store_true", help="imprime a Árvore Sintática Abstrata (AST)")
+    arg_parser.add_argument("--simbolos", action="store_true", help="imprime a tabela de símbolos (M3)")
     args = arg_parser.parse_args(argv)
 
     codigo, erro_leitura = ler_arquivo(args.arquivo)
@@ -77,6 +79,23 @@ def main(argv=None) -> int:
         print("\nÁrvore Sintática Abstrata (AST):")
         print(formatar_ast(arvore))
 
+    if arvore is None:
+        return 1
+
+    semantico = AnalisadorSemantico()
+    semantico.analisar(arvore)
+
+    if args.simbolos:
+        print("\nTabela de símbolos:")
+        print(formatar_tabela_simbolos(semantico.tabela))
+
+    if semantico.tem_erros:
+        print(f"\n{len(semantico.erros)} erro(s) semântico(s) encontrado(s):")
+        for erro in semantico.erros:
+            print(f"  {erro}")
+        return 1
+
+    print("\nAnálise semântica concluída com sucesso: programa semanticamente correto.")
     return 0
 
 

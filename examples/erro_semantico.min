@@ -1,0 +1,7 @@
+# Exemplo com erro semântico: atribui booleano a uma variável inteira (linha 4)
+programa erro_semantico {
+
+    var x: inteiro;
+    x = verdadeiro;
+
+} fim.

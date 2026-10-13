@@ -1,0 +1,22 @@
+# Vários erros semânticos (variável não declarada, tipos, condição, chamadas de procedimento).
+programa erros_semanticos {
+
+    var x: inteiro;
+    var x: booleano;
+    var b: booleano;
+
+    procedimento soma(a: inteiro, c: inteiro) {
+        escreva(a + c);
+    }
+
+    y = 10;
+    b = x + 1;
+    se (x) {
+        escreva(x);
+    }
+    soma(1);
+    soma(1, verdadeiro);
+    nao_existe(3);
+    x = x / 0;
+
+} fim.
