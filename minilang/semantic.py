@@ -288,6 +288,11 @@ class AnalisadorSemantico:
     # -- expressões (devolvem o tipo, ou None se já houve erro) --------------
 
     def _expressao(self, no: ASTNode) -> Optional[str]:
+        tipo = self._inferir_tipo(no)
+        no.tipo_inferido = tipo
+        return tipo
+
+    def _inferir_tipo(self, no: ASTNode) -> Optional[str]:
         if isinstance(no, LiteralNode):
             tipo = _tipo_literal(no)
             if tipo is None:

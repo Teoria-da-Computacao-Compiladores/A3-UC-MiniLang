@@ -1,0 +1,25 @@
+# M4 - execução: laço, procedimento com variáveis locais e chamada em repetição.
+# Imprime o fatorial de 1 a 6 (1, 2, 6, 24, 120, 720).
+programa fatorial {
+
+    var i: inteiro;
+
+    procedimento imprimir_fatorial(n: inteiro) {
+        var f: inteiro;
+        var k: inteiro;
+        f = 1;
+        k = 2;
+        enquanto (k <= n) {
+            f = f * k;
+            k = k + 1;
+        }
+        escreva(f);
+    }
+
+    i = 1;
+    enquanto (i <= 6) {
+        imprimir_fatorial(i);
+        i = i + 1;
+    }
+
+} fim.

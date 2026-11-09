@@ -36,4 +36,4 @@ Eraldino Ramos Albergaria Lopes | 12724123513
 
 ## Uso de IA generativa
 
-_[A equipe deve revisar e completar esta seção.]_ Foi utilizado o Claude (Anthropic) para implementar o analisador semântico, os testes e a documentação do M3 a partir do código do M2. Todos os integrantes devem revisar esse código e conseguir explicar qualquer trecho.
+Foi utilizado o Claude (Anthropic) para implementar o analisador semântico, os testes e a documentação do M3 a partir do código do M2. 

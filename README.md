@@ -1,120 +1,148 @@
 # A3-UC-MiniLang
 
-Este repositório contém a implementação de um compilador para a MiniLang, uma
+Este repositório contém a implementação completa de um compilador para a **MiniLang**, uma
 linguagem imperativa pequena e didática, desenvolvido para a A3 de Teoria da
-Computação e Compiladores (UNIFACS 2026.2). O projeto é construído em marcos
-ao longo do semestre.
+Computação e Compiladores (UNIFACS 2026.2). O projeto foi construído progressivamente em marcos
+ao longo do semestre, cobrindo todo o pipeline de compilação: léxico, sintático, semântico, otimização e execução.
 
 ## Equipe:
 
-Davi Floriano Hermida | 1272413195
-Paulo Victor Nonato de Jesus | 12724129348
-Alexandre Ribeiro Silva e Silva | 12724133597
-Eraldino Ramos Albergaria Lopes | 12724123513
+- Davi Floriano Hermida | 1272413195
+- Paulo Victor Nonato de Jesus | 12724129348
+- Alexandre Ribeiro Silva e Silva | 12724133597
+- Eraldino Ramos Albergaria Lopes | 12724123513
 
-| Marco | Entrega                            | Situação    |
-| ----- | ---------------------------------- | ----------- |
-| M1    | Analisador léxico                  | ✅ concluído |
-| M2    | Analisador sintático + AST         | ✅ concluído |
-| M3    | Analisador semântico               | ✅ concluído |
-| M4    | Back-end, relatório e apresentação | próximo     |
+| Marco | Entrega | Situação |
+| :---: | :--- | :---: |
+| **M1** | Analisador léxico (AFD manual e tokens com linha/coluna) | ✅ concluído |
+| **M2** | Analisador sintático (EBNF, precedência, dangling else e AST) | ✅ concluído |
+| **M3** | Analisador semântico (tabela de símbolos, escopos, tipos e AST anotada) | ✅ concluído |
+| **M4** | Back-end (interpretador com pilha de ativação), otimizador e relatório final | ✅ concluído |
 
-A extensão escolhida pela equipe para o projeto completo é a **Opção A (procedimentos sem retorno, com parâmetros por valor)**.
+A extensão escolhida e implementada integralmente pela equipe é a **Opção A (procedimentos sem retorno, com parâmetros por valor e escopo local aninhado)**.
+
+---
 
 ## 🛠️ Tecnologias
 
-- **Linguagem:** Python 3.10+ (implementação manual do compilador, sem geradores de analisadores).
-- **Bibliotecas:** apenas a biblioteca padrão (`enum`, `dataclasses`, `argparse`, `unittest`). Não é preciso instalar nada com `pip`.
+- **Linguagem:** Python 3.10+ (implementação 100% manual, sem uso de geradores automáticos como Lex/Yacc, ANTLR ou PLY).
+- **Bibliotecas:** apenas a biblioteca padrão (`enum`, `dataclasses`, `argparse`, `unittest`). Nenhuma dependência externa via `pip` é necessária para rodar o compilador ou os testes.
+
+---
 
 ## ⚙️ Instalação
 
-```
+```bash
 git clone https://github.com/Teoria-da-Computacao-Compiladores/A3-UC-MiniLang.git
 cd A3-UC-MiniLang
 ```
 
-## ▶️ Execução do compilador (Léxico + Sintático + AST + Semântico)
+---
 
-Todos os comandos devem ser executados na raiz do repositório.
+## ▶️ Execução do Compilador (M1 a M4)
 
-```
-# Executa análise léxica, sintática e semântica completa
+Todos os comandos devem ser executados na raiz do repositório:
+
+```bash
+# Análise completa (Léxico + Sintático + Semântico)
 python -m minilang examples/valido.min
 
-# Executa e imprime a Árvore Sintática Abstrata (AST)
-python -m minilang examples/valido.min --ast
+# Executa o programa interpretando a AST (M4)
+python -m minilang examples/fatorial.min --executar
 
-# Executa o exemplo da Opção A (procedimentos)
+# Executa com otimizações aplicadas e exibe o relatório de transformações (M4)
+python -m minilang examples/otimizacao.min --otimizar --executar
+
+# Exibe a Árvore Sintática Abstrata (AST) anotada com os tipos inferidos (M3/M4)
 python -m minilang examples/procedimento.min --ast
 
-# Imprime a tabela de símbolos (M3)
+# Exibe a tabela de símbolos e seus escopos aninhados (M3)
 python -m minilang examples/procedimento.min --simbolos
+
+# Oculta a tabela de tokens léxicos para saída limpa em apresentações
+python -m minilang examples/fatorial.min --sem-tokens --executar
 ```
 
-A saída exibe a tabela de tokens léxicos, seguida da análise sintática e da análise semântica e, se houver erros (léxicos, sintáticos ou semânticos), reporta cada um com linha, coluna e descrição. A análise de cada etapa só roda se a anterior não tiver erros.
+### Códigos de Saída (Exit Codes)
 
-Código de saída: `0` sem erros, `1` com erros léxicos, sintáticos ou semânticos, `2` se o arquivo não puder ser lido.
+| Código | Significado |
+| :---: | :--- |
+| `0` | Sucesso absoluto em todas as etapas executadas |
+| `1` | Erro de compilação (léxico, sintático ou semântico) |
+| `2` | Erro de leitura de arquivo (não encontrado / ilegível) ou uso incorreto da CLI |
+| `3` | Erro em tempo de execução (divisão por zero, entrada inválida, estouro de pilha) |
 
-### Exemplos
+---
 
-| Arquivo                                   | O que mostra                                                     |
-| ----------------------------------------- | ---------------------------------------------------------------- |
-| `examples/valido.min`                     | Programa completo com comandos e expressões sem erros            |
-| `examples/procedimento.min`               | Extensão Opção A: procedimento com parâmetros e variáveis locais |
-| `examples/operadores.min`                 | Todos os operadores aritméticos, relacionais e lógicos           |
-| `examples/comentarios.min`                | Comentários descartados corretamente em várias posições          |
-| `examples/erro_lexico.min`                | Erro léxico pontual (`@`) com linha e coluna                     |
-| `examples/erros_multiplos.min`            | Múltiplos erros léxicos reportados em lote                       |
-| `examples/erro_sintatico.min`             | Erro sintático pontual com linha e coluna                        |
-| `examples/erros_sintaticos_multiplos.min` | Recuperação em modo pânico reportando múltiplos erros sintáticos |
-| `examples/erro_semantico.min`             | Erro semântico pontual: atribuição de `booleano` a `inteiro`     |
-| `examples/erros_semanticos_multiplos.min` | Vários erros semânticos reportados em lote (escopo, tipos, procedimentos) |
+## 📁 Exemplos Demonstrativos
 
-```
-python -m minilang examples/procedimento.min --ast
-python -m minilang examples/erro_sintatico.min
-python -m minilang examples/erros_sintaticos_multiplos.min
-python -m minilang examples/erro_semantico.min
-python -m minilang examples/erros_semanticos_multiplos.min
-```
-> No Linux/macOS, use `python3` se `python` não apontar para o Python 3.
+| Arquivo | O que demonstra | Comando sugerido |
+| :--- | :--- | :--- |
+| `examples/fatorial.min` | Laço `enquanto` + procedimento com variáveis locais (M4) | `python -m minilang examples/fatorial.min --executar` |
+| `examples/recursao.min` | Recursão com pilha de ativação dinâmica — profundidade 11 (M4/Opção A) | `python -m minilang examples/recursao.min --executar` |
+| `examples/escopo_e_valor.min` | Passagem por valor e sombreamento de variável global (M4/Opção A) | `python -m minilang examples/escopo_e_valor.min --executar` |
+| `examples/otimizacao.min` | Dobramento de constantes, simplificação algébrica e poda de código morto (M4) | `python -m minilang examples/otimizacao.min --otimizar --executar --ast` |
+| `examples/entrada.min` | Comando `leia()` recebendo dados via entrada padrão (M4) | `"7","12" \| python -m minilang examples/entrada.min --executar` |
+| `examples/procedimento.min` | Extensão Opção A: procedimento com múltiplos parâmetros (M2/M3) | `python -m minilang examples/procedimento.min --ast --simbolos` |
+| `examples/valido.min` | Programa completo clássico sem erros | `python -m minilang examples/valido.min --executar` |
+| `examples/erro_execucao.min` | Erro em tempo de execução (divisão por zero) com exit code 3 | `python -m minilang examples/erro_execucao.min --executar` |
+| `examples/erro_semantico.min` | Atribuição incompatível (`booleano` para `inteiro`) | `python -m minilang examples/erro_semantico.min` |
+| `examples/erros_semanticos_multiplos.min` | Múltiplos erros semânticos reportados sem efeito avalanche | `python -m minilang examples/erros_semanticos_multiplos.min` |
+| `examples/erro_sintatico.min` | Erro sintático pontual com linha e coluna | `python -m minilang examples/erro_sintatico.min` |
+| `examples/erros_sintaticos_multiplos.min` | Recuperação sintática em modo pânico | `python -m minilang examples/erros_sintaticos_multiplos.min` |
+| `examples/erro_lexico.min` | Caractere inválido (`@`) | `python -m minilang examples/erro_lexico.min` |
+| `examples/erros_multiplos.min` | Múltiplos erros léxicos acumulados | `python -m minilang examples/erros_multiplos.min` |
 
-## ✅ Testes
+---
 
-```
+## ✅ Testes Automatizados (216 Testes)
+
+Para rodar toda a suíte de testes do compilador:
+
+```bash
 python -m unittest discover -s tests
 ```
 
-| Arquivo                               | O que cobre                                                                             |
-| ------------------------------------- | --------------------------------------------------------------------------------------- |
-| `tests/test_lexer.py`                 | Casos básicos do léxico: espaços, comentários, palavras reservadas e lookahead          |
-| `tests/test_lexer_complemento.py`     | Todas as categorias de token da especificação                                           |
-| `tests/test_lexer_erros_e_limites.py` | Mensagens de erro léxico, identificadores mal formados, acentos e casos limite          |
-| `tests/test_exemplos_e_cli.py`        | Integração dos exemplos e linha de comando do compilador                                |
-| `tests/test_parser.py`                | Análise sintática: EBNF, AST, precedência, associatividade, dangling else e modo pânico |
-| `tests/test_semantic.py`              | Análise semântica: escopos, tipos, condições e procedimentos (Opção A)                  |
+| Arquivo de Teste | Fase | Qtd | Cobertura |
+| :--- | :---: | :---: | :--- |
+| `tests/test_lexer.py` | M1 | 5 | Casos básicos do léxico: espaços, comentários e lookahead |
+| `tests/test_lexer_complemento.py` | M1 | 15 | Todas as categorias de tokens da especificação |
+| `tests/test_lexer_erros_e_limites.py` | M1 | 23 | Mensagens de erro léxico, `12abc`, acentos e limites de recursão |
+| `tests/test_exemplos_e_cli.py` | M1/M2 | 12 | Integração dos exemplos de M1/M2 e comandos CLI |
+| `tests/test_parser.py` | M2 | 15 | Gramática EBNF, precedência, associatividade, dangling else e modo pânico |
+| `tests/test_semantic.py` | M3 | 36 | Escopos, tipos, condições e procedimentos (Opção A) |
+| `tests/test_anotacao_ast.py` | M3 | 10 | Anotação de tipos inferidos na AST e formatação visual |
+| `tests/test_interpreter.py` | M4 | 39 | Execução sobre a AST, truncamento, curto-circuito, pilha de ativação e erros de runtime |
+| `tests/test_optimizer.py` | M4 | 43 | Dobramento de constantes, simplificação algébrica, código morto e equivalência semântica |
+| `tests/test_backend_cli.py` | M4 | 18 | Flags `--executar`, `--otimizar`, entrada padrão e exit codes 0, 1, 2 e 3 |
 
-## 📚 Documentação
+---
 
-- [docs/entrega_m1.md](docs/entrega_m1.md) — especificações léxicas, expressões regulares, diagrama Mermaid e tabela de transição do AFD.
-- [docs/nota_marco_m1.md](docs/nota_marco_m1.md) — nota de marco do M1 (escopo, decisões técnicas e divisão da equipe).
-- [docs/entrega_m2.md](docs/entrega_m2.md) — especificações sintáticas, gramática EBNF, precedência, resolução do dangling else e AST.
-- [docs/nota_marco_m2.md](docs/nota_marco_m2.md) — nota de marco do M2 (escopo, decisões de projeto e divisão da equipe).
-- [docs/entrega_m3.md](docs/entrega_m3.md) — tabela de símbolos, regras de tipos e verificações da Opção A.
-- [docs/nota_marco_m3.md](docs/nota_marco_m3.md) — nota de marco do M3 (escopo, decisões de projeto e divisão da equipe).
+## 📚 Documentação e Entregáveis
 
-## 📁 Estrutura
+- [docs/relatorio_final.pdf](docs/relatorio_final.pdf) — **Relatório Técnico Final oficial (8 páginas)** com arquitetura, decisões, gramática EBNF, AFD, otimizações e declaração de IA.
+- [docs/roteiro_apresentacao.md](docs/roteiro_apresentacao.md) — Roteiro completo de 15 minutos com comandos prontos para a apresentação e possíveis perguntas da arguição.
+- [docs/entrega_m1.md](docs/entrega_m1.md) e [docs/nota_marco_m1.md](docs/nota_marco_m1.md) — Especificações e nota do Marco 1 (Léxico / AFD).
+- [docs/entrega_m2.md](docs/entrega_m2.md) e [docs/nota_marco_m2.md](docs/nota_marco_m2.md) — Especificações e nota do Marco 2 (Sintático / EBNF / AST).
+- [docs/entrega_m3.md](docs/entrega_m3.md) e [docs/nota_marco_m3.md](docs/nota_marco_m3.md) — Especificações e nota do Marco 3 (Semântico / Tipos / Tabela de Símbolos).
+- [docs/entrega_m4.md](docs/entrega_m4.md) e [docs/nota_marco_m4.md](docs/nota_marco_m4.md) — Especificações e nota do Marco 4 (Back-end / Otimizador / Execução).
+
+---
+
+## 📁 Estrutura do Código
 
 ```
 A3-UC-MiniLang/
 ├── minilang/
-│   ├── __init__.py      # pacote do compilador
-│   ├── __main__.py      # linha de comando (python -m minilang)
-│   ├── ast.py           # nós da árvore sintática abstrata e formatador
-│   ├── lexer.py         # analisador léxico
-│   ├── parser.py        # analisador sintático recursivo descendente
-│   └── semantic.py      # analisador semântico e tabela de símbolos
-├── examples/            # programas MiniLang de exemplo (.min)
-├── tests/               # testes automatizados (unittest)
-└── docs/                # documentação formal, AFD, gramática EBNF e notas de marco
+│   ├── __init__.py        # Pacote e exportações da API pública
+│   ├── __main__.py        # Ponto de entrada CLI (python -m minilang)
+│   ├── ast.py             # Definição dos nós da AST com tipo_inferido
+│   ├── lexer.py           # Analisador léxico manual baseado em AFD
+│   ├── parser.py          # Analisador sintático preditivo recursivo descendente
+│   ├── semantic.py        # Analisador semântico e tabela de símbolos
+│   ├── optimizer.py       # Otimizador AST->AST (dobramento, algébrica, código morto)
+│   └── interpreter.py     # Back-end: interpretador com pilha de ativação
+├── examples/              # Programas MiniLang de teste e demonstração (.min)
+├── tests/                 # Suíte completa de 216 testes automatizados (unittest)
+└── docs/                  # Relatório técnico final, notas de marco e especificações
 ```

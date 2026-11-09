@@ -1,0 +1,15 @@
+# M4 - erro de execução: passa pela análise semântica (o divisor não é o literal 0),
+# mas divide por zero em tempo de execução (linha 11). Imprime 2, 2, 3, 5, 10 e falha.
+programa erro_execucao {
+
+    var total: inteiro;
+    var divisor: inteiro;
+
+    total = 10;
+    divisor = 5;
+    enquanto (divisor >= 0) {
+        escreva(total / divisor);
+        divisor = divisor - 1;
+    }
+
+} fim.
