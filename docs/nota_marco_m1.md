@@ -44,5 +44,4 @@ Eraldino Ramos Albergaria Lopes |	12724123513
 ## Uso de IA generativa
 
 Foi usado o Claude (Anthropic) e Google Gemini para revisar o M1 e implementar os ajustes técnicos:
-mensagens de erro léxico, correção da recursão nos comentários, restrição do alfabeto, linha de comando, testes e documentação do AFD. 
-Todos os integrantes devem revisar esse código e conseguir explicar qualquer trecho.
+Mensagens de erro léxico, correção da recursão nos comentários, restrição do alfabeto, linha de comando, testes e documentação do AFD. 

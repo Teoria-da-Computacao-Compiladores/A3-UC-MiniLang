@@ -1,0 +1,22 @@
+# M4 - Opção A: procedimentos recursivos (pilha de ativação).
+# contagem(5) imprime 5 4 3 2 1; fibonacci imprime os 10 primeiros termos.
+programa recursao {
+
+    procedimento contagem(n: inteiro) {
+        se (n > 0) {
+            escreva(n);
+            contagem(n - 1);
+        }
+    }
+
+    procedimento fibonacci(a: inteiro, b: inteiro, restantes: inteiro) {
+        se (restantes > 0) {
+            escreva(a);
+            fibonacci(b, a + b, restantes - 1);
+        }
+    }
+
+    contagem(5);
+    fibonacci(0, 1, 10);
+
+} fim.

@@ -1,0 +1,32 @@
+# M4 - otimização: dobramento de constantes, simplificação algébrica e código morto.
+# Use: python -m minilang examples/otimizacao.min --otimizar --executar
+# A saída do programa é a mesma com ou sem --otimizar; só a AST fica menor.
+programa otimizacao {
+
+    var x: inteiro;
+    var y: inteiro;
+    var ativo: booleano;
+
+    x = 2 * 3 + 4;
+    y = x * 1 + 0;
+    ativo = verdadeiro e não falso;
+
+    se (verdadeiro) {
+        escreva(x);
+    } senão {
+        escreva(0 - 1);
+    }
+
+    se (2 > 3) {
+        escreva(999);
+    }
+
+    enquanto (1 == 2) {
+        escreva(888);
+    }
+
+    escreva(y * 0 + x);
+    escreva(-(-y));
+    escreva(ativo);
+
+} fim.

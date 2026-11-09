@@ -8,7 +8,7 @@ if _root_dir not in sys.path:
 while _minilang_dir in sys.path:
     sys.path.remove(_minilang_dir)
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, List, Optional
 
 
@@ -16,6 +16,7 @@ from typing import Any, List, Optional
 class ASTNode:
     linha: int
     coluna: int
+    tipo_inferido: Optional[str] = field(default=None, init=False, repr=False, compare=False)
 
 
 @dataclass
@@ -105,6 +106,15 @@ class VarAccessNode(ASTNode):
 
 
 def formatar_ast(no: ASTNode, nivel: int = 0) -> str:
+    texto = _formatar_no(no, nivel)
+    tipo = getattr(no, "tipo_inferido", None)
+    if tipo is None:
+        return texto
+    primeira, separador, resto = texto.partition("\n")
+    return f"{primeira} : {tipo}{separador}{resto}"
+
+
+def _formatar_no(no: ASTNode, nivel: int) -> str:
     espaco = "  " * nivel
 
     if isinstance(no, ProgramNode):

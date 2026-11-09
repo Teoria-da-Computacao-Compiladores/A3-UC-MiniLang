@@ -1,0 +1,18 @@
+# M4 - entrada: lê dois inteiros com 'leia' e imprime a soma e o maior.
+# Exemplo: "7" e "12" (uma linha para cada valor) imprimem 19 e 12.
+programa entrada {
+
+    var a: inteiro;
+    var b: inteiro;
+
+    leia(a);
+    leia(b);
+    escreva(a + b);
+
+    se (a > b) {
+        escreva(a);
+    } senão {
+        escreva(b);
+    }
+
+} fim.

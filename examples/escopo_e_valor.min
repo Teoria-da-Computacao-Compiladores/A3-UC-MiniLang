@@ -1,0 +1,23 @@
+# M4 - Opção A: parâmetros por valor e escopo local.
+# O procedimento altera sua cópia 'v' e sua variável local 'g' (que oculta a global),
+# mas 'x' e a 'g' global continuam intactas. Saída esperada: 101, 7, 1, 50.
+programa escopo_e_valor {
+
+    var x: inteiro;
+    var g: inteiro;
+
+    procedimento alterar(v: inteiro) {
+        var g: inteiro;
+        v = v + 100;
+        g = 7;
+        escreva(v);
+        escreva(g);
+    }
+
+    x = 1;
+    g = 50;
+    alterar(x);
+    escreva(x);
+    escreva(g);
+
+} fim.
