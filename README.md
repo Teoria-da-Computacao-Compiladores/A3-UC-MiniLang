@@ -8,9 +8,14 @@ ao longo do semestre, cobrindo todo o pipeline de compilação: léxico, sintát
 ## Equipe:
 
 - Davi Floriano Hermida | 1272413195
+
 - Paulo Victor Nonato de Jesus | 12724129348
+  
 - Alexandre Ribeiro Silva e Silva | 12724133597
+  
 - Eraldino Ramos Albergaria Lopes | 12724123513
+  
+- Victor Botto Silva Passos | 12724130769
 
 | Marco | Entrega | Situação |
 | :---: | :--- | :---: |
